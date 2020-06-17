@@ -1,0 +1,11 @@
+version: '2.4'
+services:
+  app:
+    build:                                  # Uncomment to enable local build
+      context: ../..
+      dockerfile: ./dist/alpine/Dockerfile
+      args:
+        - KOPS_VERSION
+        - HELM_VERSION
+    image: vathes/k8s-admin:kops${KOPS_VERSION}-helm${HELM_VERSION}-alpine
+    command: tail -f /dev/null
