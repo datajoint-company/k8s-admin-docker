@@ -7,5 +7,5 @@ services:
       args:
         - KOPS_VERSION
         - HELM_VERSION
-    image: registry.vathes.com/vathes/k8s-admin:kops${KOPS_VERSION}-helm${HELM_VERSION}-alpine
+    image: vathes/k8s-admin:kops${KOPS_VERSION}-helm${HELM_VERSION}-alpine
     command: tail -f /dev/null

@@ -8,4 +8,4 @@
 
 ## Notes
 
-https://registry.vathes.com/r/vathes/k8s-admin
+https://hub.docker.com/r/vathes/k8s-admin
