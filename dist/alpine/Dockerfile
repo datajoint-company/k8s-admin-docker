@@ -22,7 +22,7 @@ RUN \
     chmod +x /usr/local/bin/helm && \
     helm init --history-max 200 --client-only
 ENV PATH "/root/.local/bin:$PATH"
-RUN mkdir /data && mkdir src
+RUN mkdir /data && mkdir /src && mkdir /config
 
 # #Squashed Final Image
 FROM scratch
