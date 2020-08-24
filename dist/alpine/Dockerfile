@@ -2,7 +2,7 @@ FROM python:3.8-alpine3.12 as k8s_build
 ARG KOPS_VERSION
 ARG HELM_VERSION
 RUN \
-    apk add curl jq && \
+    apk add curl jq openssh && \
     # AWS CLI
     pip install awscli yq --upgrade --user && \
     # KOPS
