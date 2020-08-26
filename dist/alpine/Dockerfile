@@ -2,8 +2,10 @@ FROM python:3.8-alpine3.12 as k8s_build
 ARG KOPS_VERSION
 ARG HELM_VERSION
 RUN \
-	apk add curl jq openssh && \
-	# AWS CLI
+	mkdir /main && \
+	# for download, json parsing, ssh keygen, api keygen
+	apk add curl jq openssh openssl && \
+	# for aws cli, yaml parsing
 	pip install awscli yq --upgrade --user && \
 	# KOPS
 	curl -L $(echo "https://github.com/kubernetes/kops/releases/download/${KOPS_VERSION}\
@@ -25,7 +27,6 @@ RUN \
 	[ ! "${HELM_VERSION}" == "v3.3.0" ] || helm repo add stable \
 		https://kubernetes-charts.storage.googleapis.com/
 ENV PATH "/root/.local/bin:$PATH"
-RUN mkdir /data && mkdir /src && mkdir /config
 
 # #Squashed Final Image
 FROM scratch
@@ -34,7 +35,6 @@ LABEL maintainerName="Raphael Guzman" \
 	maintainerEmail="raphael@vathes.com" \
 	maintainerCompany="DataJoint"
 ENV PATH "/root/.local/bin:$PATH"
-WORKDIR /src
-VOLUME /src
-VOLUME /data
+WORKDIR /main
+VOLUME /main
 CMD ["sh"]
