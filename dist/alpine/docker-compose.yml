@@ -13,5 +13,6 @@ services:
       - -lc
       - >
         echo "$$0 running...";
+        echo "PATH: '$$PATH'";
         tail -f /dev/null;
     
