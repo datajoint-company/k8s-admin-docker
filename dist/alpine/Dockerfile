@@ -3,10 +3,11 @@ ARG KOPS_VERSION
 ARG HELM_VERSION
 RUN \
 	mkdir /main && \
-	# for download, json parsing, ssh keygen, api keygen
-	apk add curl jq openssh openssl && \
+	apk update && \
+	# export functions, for download, json parsing, ssh keygen, api keygen
+	apk add --no-cache bash curl jq openssh openssl && \
 	# for aws cli, yaml parsing
-	pip install awscli yq --upgrade --user && \
+	pip install awscli yq --upgrade --user --no-cache-dir && \
 	# KOPS
 	curl -L $(echo "https://github.com/kubernetes/kops/releases/download/${KOPS_VERSION}\
 		/kops-linux-amd64" -o /usr/local/bin/kops | tr -d '\n' | tr -d '\t') && \
@@ -37,4 +38,5 @@ LABEL maintainerName="Raphael Guzman" \
 ENV PATH "/root/.local/bin:$PATH"
 WORKDIR /main
 VOLUME /main
-CMD ["sh"]
+SHELL ["/bin/bash", "-lc"]
+CMD ["/bin/bash"]
