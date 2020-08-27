@@ -26,7 +26,8 @@ RUN \
 	chmod +x /usr/local/bin/helm && \
 	[ ! "${HELM_VERSION}" == "v2.14.1" ] || helm init --history-max 200 --client-only && \
 	[ ! "${HELM_VERSION}" == "v3.3.0" ] || helm repo add stable \
-		https://kubernetes-charts.storage.googleapis.com/
+		https://kubernetes-charts.storage.googleapis.com/ && \
+	echo "export PATH=/root/.local/bin:${PATH}" > /etc/profile.d/env.sh
 ENV PATH "/root/.local/bin:$PATH"
 
 # #Squashed Final Image
