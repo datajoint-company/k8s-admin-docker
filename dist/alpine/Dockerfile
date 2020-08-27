@@ -27,7 +27,9 @@ RUN \
 	[ ! "${HELM_VERSION}" == "v2.14.1" ] || helm init --history-max 200 --client-only && \
 	[ ! "${HELM_VERSION}" == "v3.3.0" ] || helm repo add stable \
 		https://kubernetes-charts.storage.googleapis.com/ && \
-	echo "export PATH=/root/.local/bin:${PATH}" > /etc/profile.d/env.sh
+	echo "export PATH=/root/.local/bin:${PATH}" > /etc/profile.d/env.sh && \
+	echo $(echo 'export PS1="\[\e[32;1m\]\u\[\e[m\]@\[\e[34;1m\]\H\[\e[m\]:\
+		\[\e[33;1m\]\w\[\e[m\]$ "' | tr -d '\n' | tr -d '\t') > /root/.bashrc
 ENV PATH "/root/.local/bin:$PATH"
 
 # #Squashed Final Image

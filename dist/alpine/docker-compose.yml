@@ -10,7 +10,7 @@ services:
     image: vathes/k8s-admin:kops${KOPS_VERSION}-helm${HELM_VERSION}-alpine
     command: 
       - bash
-      - -lc
+      - -c
       - >
         echo "$$0 running...";
         echo "PATH: '$$PATH'";
