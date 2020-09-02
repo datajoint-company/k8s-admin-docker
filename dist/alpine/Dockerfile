@@ -27,6 +27,7 @@ RUN \
 	[ ! "${HELM_VERSION}" == "v2.14.1" ] || helm init --history-max 200 --client-only && \
 	[ ! "${HELM_VERSION}" == "v3.3.0" ] || helm repo add stable \
 		https://kubernetes-charts.storage.googleapis.com/ && \
+	## ------- OPTIONAL -------
 	# AWS IAM AUTHENTICATOR CLIENT
 	curl -L $(echo "https://github.com/kubernetes-sigs/aws-iam-authenticator/releases\
 		/download/v0.5.1/aws-iam-authenticator_0.5.1_linux_amd64" | tr -d '\n' | tr -d '\t') \
