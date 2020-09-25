@@ -7,7 +7,12 @@ RUN \
 	# export functions, for download, json parsing, ssh keygen, api keygen
 	apk add --no-cache bash curl jq openssh openssl && \
 	# for aws cli, yaml parsing
-	pip install awscli yq --upgrade --user --no-cache-dir && \
+	pip install awscli --upgrade --user --no-cache-dir && \
+	# YQ (last verified was 3.4.0)
+	curl -L $(echo "https://github.com/mikefarah/yq/releases/download/\
+		$(curl https://api.github.com/repos/mikefarah/yq/releases/latest | jq -r '.tag_name')/\
+		yq_linux_amd64" | tr -d '\n' | tr -d '\t') -o /usr/local/bin/yq && \
+	chmod +x /usr/local/bin/yq && \
 	# KOPS
 	curl -L $(echo "https://github.com/kubernetes/kops/releases/download/${KOPS_VERSION}\
 		/kops-linux-amd64" | tr -d '\n' | tr -d '\t') -o /usr/local/bin/kops && \
