@@ -2,16 +2,15 @@ FROM python:3.8-alpine3.12 as k8s_build
 ARG KOPS_VERSION
 ARG HELM_VERSION
 RUN \
-	mkdir /main && \
+	set -x; > /etc/inittab && mkdir /main && \
 	apk update && \
 	# export functions, for download, json parsing, ssh keygen, api keygen
-	apk add --no-cache bash curl jq openssh openssl && \
+	apk add --no-cache bash curl jq openssh openssl util-linux bind-tools && \
 	# for aws cli, yaml parsing
 	pip install awscli --upgrade --user --no-cache-dir && \
-	# YQ (last verified was 3.4.0)
-	curl -L $(echo "https://github.com/mikefarah/yq/releases/download/\
-		$(curl https://api.github.com/repos/mikefarah/yq/releases/latest | jq -r '.tag_name')/\
-		yq_linux_amd64" | tr -d '\n' | tr -d '\t') -o /usr/local/bin/yq && \
+	# YQ (v4 needs migration)
+	curl -L "https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64" \
+		-o /usr/local/bin/yq && \
 	chmod +x /usr/local/bin/yq && \
 	# KOPS
 	curl -L $(echo "https://github.com/kubernetes/kops/releases/download/${KOPS_VERSION}\
