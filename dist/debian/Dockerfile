@@ -1,11 +1,11 @@
-FROM python:3.8-alpine3.12 as k8s_build
+FROM python:3.8-bullseye as k8s_build
 ARG KOPS_VERSION
 ARG HELM_VERSION
 RUN \
 	set -x; > /etc/inittab && mkdir /main && \
-	apk update && \
+	apt update && \
 	# export functions, for download, json parsing, ssh keygen, api keygen
-	apk add --no-cache bash curl jq openssh openssl util-linux bind-tools && \
+	apt add --no-cache bash curl jq openssh openssl util-linux bind-tools && \
 	# for aws cli, yaml parsing
 	pip install awscli --upgrade --user --no-cache-dir && \
 	# YQ (v4 needs migration)
