@@ -8,7 +8,7 @@ services:
       args:
         - KOPS_VERSION
         - HELM_VERSION
-    image: registry.vathes.com/vathes/k8s-admin:kops${KOPS_VERSION}-helm${HELM_VERSION}-alpine
+    image: registry.vathes.com/vathes/k8s-admin:kops${KOPS_VERSION}-helm${HELM_VERSION}-debian
     command:
       - bash
       - -c
